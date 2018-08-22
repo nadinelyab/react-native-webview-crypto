@@ -23,6 +23,7 @@ export default class PolyfillCrypto extends React.Component<{debug: boolean}, {}
 
   render() {
     let worker: MainWorker;
+    console.log(injectString)
     return (
       <View style={styles.hidden} >
         <WebViewBridge
