@@ -1,6 +1,6 @@
 import * as React from "react";
-import {StyleSheet, View} from "react-native";
-const WebViewBridge = require("react-native-webview-bridge");
+import {StyleSheet, View, WebView} from "react-native";
+//const WebViewBridge = require("react-native-webview-bridge");
 
 import {MainWorker, webViewWorkerString} from "webview-crypto";
 
@@ -23,13 +23,14 @@ export default class PolyfillCrypto extends React.Component<{debug: boolean}, {}
 
   render() {
     let worker: MainWorker;
+    console.log(injectString)
     return (
       <View style={styles.hidden} >
-        <WebViewBridge
+        <WebView
           ref={
             (c) => {
               if (c && !worker)  {
-                worker = new MainWorker(c.sendToBridge, this.props.debug);
+                worker = new MainWorker(c.postMessage, this.props.debug);
 
                 if (window.crypto) { // we are in chrome debugger
                   // this means overridng the crypto object itself won't
@@ -45,7 +46,7 @@ export default class PolyfillCrypto extends React.Component<{debug: boolean}, {}
               }
             }
           }
-          onBridgeMessage={
+          onMessage={
             // can't refer to this.state.onBridgeMessage directly
             // because it is not defined when this component is first
             // started, only set in `ref`
