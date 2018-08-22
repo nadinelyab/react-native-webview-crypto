@@ -51,6 +51,7 @@ export default class PolyfillCrypto extends React.Component<{debug: boolean}, {}
             // because it is not defined when this component is first
             // started, only set in `ref`
             (message: string) => {
+              console.log('message', message)
               worker.onWebViewMessage(message);
             }
           }

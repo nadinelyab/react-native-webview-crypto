@@ -31,6 +31,7 @@ class PolyfillCrypto extends React.Component {
                 }
             }
         }, onBridgeMessage: (message) => {
+            console.log('message', message);
             worker.onWebViewMessage(message);
         }, injectedJavaScript: injectString, onError: (error) => {
             console.warn("react-native-webview-crypto: Error creating webview: ", error);
